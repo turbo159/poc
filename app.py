@@ -17,7 +17,8 @@ try:
 	result = response.read()
 	output = result.split(",")
 
-return output
+for st in output:
+		print(st)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80)
