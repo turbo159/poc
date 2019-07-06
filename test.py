@@ -10,5 +10,6 @@ try:
 	
 	for st in output:
 		print(st)
+
 except URLError, e:
     print 'Some kind of error:', e
