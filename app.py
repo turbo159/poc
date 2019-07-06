@@ -1,5 +1,6 @@
 from flask import Flask
 from redis import Redis, RedisError
+from urllib2 import Request, urlopen, URLError
 import os
 import socket
 
@@ -12,10 +13,9 @@ app = Flask(__name__)
 def hello():
     request = Request('https://servicesqa.na.cargill.com:8443/core/request/info?hello=there')
 
-try:
-	response = urlopen(request)
-	result = response.read()
-return result
+    response = urlopen(request)
+    result = response.read()
+    return result
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80)
