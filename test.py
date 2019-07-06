@@ -1,15 +1,22 @@
-from urllib2 import Request, urlopen, URLError
+import certifi
+import urllib3
 
-# request = Request('https://itunes.apple.com/search?term=simple minds')
-request = Request('https://servicesqa.na.cargill.com:8443/core/request/info?hello=there')
 
-try:
-	response = urlopen(request)
-	result = response.read()
-	output = result.split(",")
+
+def test():
+
+	http = urllib3.PoolManager()
+		#cert_reqs='CERT_REQUIRED',
+		#ca_certs=certifi.where())
+
+	try:
+		r = http.request('GET', 'https://servicesqa.na.cargill.com:8443/core/request/info?hello=there')
+		status = r.status
+		print 'Status: ', status
+
+	except urllib3.exceptions.ConnectionError, e:
+		print 'Some kind of error:', e
+
+	return r.data
 	
-	for st in output:
-		print(st)
-
-except URLError, e:
-    print 'Some kind of error:', e
+print test()
